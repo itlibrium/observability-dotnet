@@ -27,7 +27,8 @@ namespace Telemetry.ServiceA
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
                 .AddSqlClientInstrumentation()
-                .AddConsoleExporter());
+                .AddConsoleExporter()
+                .AddJaegerExporter());
             services.AddScoped<Service>();
             services.AddHttpClient<ExternalService>(config => config.BaseAddress = new Uri("http://localhost:5001"));
         }
