@@ -1,1 +1,1 @@
-# telemetry-dotnet
+# Observability in .net core

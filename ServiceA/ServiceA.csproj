@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-        <RootNamespace>Telemetry.ServiceA</RootNamespace>
-        <AssemblyName>Telemetry.ServiceA</AssemblyName>
+        <RootNamespace>Observability.ServiceA</RootNamespace>
+        <AssemblyName>Observability.ServiceA</AssemblyName>
         <LangVersion>default</LangVersion>
     </PropertyGroup>
 
