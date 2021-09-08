@@ -1,9 +1,11 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
 namespace Observability.ServiceB
@@ -19,20 +21,13 @@ namespace Observability.ServiceB
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "ServiceB", Version = "v1"}); });
             services.AddOpenTelemetryTracing(config => config
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("ServiceB"))
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
                 .AddSqlClientInstrumentation()
-                .AddConsoleExporter());
-            // services.AddSingleton<OpenTelemetryLoggerProvider>();
-            // services.AddLogging(config => config
-            //     .Configure(options => options.ActivityTrackingOptions = 
-            //         ActivityTrackingOptions.TraceId |
-            //         ActivityTrackingOptions.SpanId |
-            //         ActivityTrackingOptions.ParentId)
-            //     .ClearProviders()
-            //     .AddJsonConsole()
-            //     .AddOpenTelemetry(options => options
-            //         .AddConsoleExporter()));
+                .AddConsoleExporter()
+                .AddJaegerExporter()
+                .AddOtlpExporter(options => options.Endpoint = new Uri("http://localhost:8200")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Observability.ServiceA.Controllers;
+using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
 namespace Observability.ServiceA
@@ -24,11 +25,13 @@ namespace Observability.ServiceA
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "ServiceA", Version = "v1"});
             });
             services.AddOpenTelemetryTracing(config => config
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("ServiceA"))
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
                 .AddSqlClientInstrumentation()
                 .AddConsoleExporter()
-                .AddJaegerExporter());
+                .AddJaegerExporter()
+                .AddOtlpExporter(options => options.Endpoint = new Uri("http://localhost:8200")));
             services.AddScoped<Service>();
             services.AddHttpClient<ExternalService>(config => config.BaseAddress = new Uri("http://localhost:5001"));
         }

@@ -48,6 +48,7 @@ namespace Observability.ServiceA.Controllers
         [HttpGet("with-external-service-sync")]
         public async Task<IActionResult> WithExternalServiceSync()
         {
+            _logger.LogInformation("Test with external service sync started");
             var forecast = await _externalService.GetWeatherForecast();
             return Ok(forecast);
         }
