@@ -4,10 +4,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using OpenTelemetry.Logs;
 using OpenTelemetry.Trace;
+using Telemetry.ServiceA.Controllers;
 
 namespace Telemetry.ServiceA
 {
@@ -29,12 +28,8 @@ namespace Telemetry.ServiceA
                 .AddHttpClientInstrumentation()
                 .AddSqlClientInstrumentation()
                 .AddConsoleExporter());
-            services.AddLogging(config => config
-                .ClearProviders()
-                .AddOpenTelemetry(options => options
-                    .AddConsoleExporter()));
+            services.AddScoped<Service>();
             services.AddHttpClient<ExternalService>(config => config.BaseAddress = new Uri("http://localhost:5001"));
-            
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

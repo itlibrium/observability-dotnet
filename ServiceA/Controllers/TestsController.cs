@@ -10,11 +10,13 @@ namespace Telemetry.ServiceA.Controllers
     [Route("[controller]")]
     public class TestsController : ControllerBase
     {
+        private readonly Service _service;
         private readonly ExternalService _externalService;
         private readonly ILogger<TestsController> _logger;
 
-        public TestsController(ExternalService externalService, ILogger<TestsController> logger)
+        public TestsController(Service service, ExternalService externalService, ILogger<TestsController> logger)
         {
+            _service = service;
             _externalService = externalService;
             _logger = logger;
         }
@@ -22,13 +24,27 @@ namespace Telemetry.ServiceA.Controllers
         [HttpGet("simple")]
         public IActionResult Simple()
         {
-            _logger.LogInformation("Executing simple scenario");
+            _logger.LogInformation("Message with {Int}, {String} and {@Object}",
+                123,
+                "lorem ipsum",
+                new MyClass
+                {
+                    Date = DateTime.Now,
+                    Text = "bla bla bla"
+                });
+            _service.DoSth();
             return Ok(Activity.Current);
+        }
+
+        private class MyClass
+        {
+            public DateTime Date { get; set; }
+            public string Text { get; set; }
         }
 
         [HttpGet("with-db")]
         public Task<IActionResult> WithDb() => throw new NotImplementedException();
-        
+
         [HttpGet("with-external-service-sync")]
         public async Task<IActionResult> WithExternalServiceSync()
         {
@@ -38,13 +54,13 @@ namespace Telemetry.ServiceA.Controllers
 
         [HttpGet("with-external-service-async")]
         public Task<IActionResult> WithExternalServiceAsync() => throw new NotImplementedException();
-        
+
         [HttpGet("with-exception")]
         public Task<IActionResult> WithException() => throw new NotImplementedException();
-        
+
         [HttpGet("with-exception-in-external-service")]
         public Task<IActionResult> WithExceptionInExternalService() => throw new NotImplementedException();
-        
+
         [HttpGet("complex")]
         public Task<IActionResult> Complex() => throw new NotImplementedException();
     }

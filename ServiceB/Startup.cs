@@ -25,11 +25,16 @@ namespace Telemetry.ServiceB
                 .AddHttpClientInstrumentation()
                 .AddSqlClientInstrumentation()
                 .AddConsoleExporter());
-            services.AddSingleton<OpenTelemetryLoggerProvider>();
-            services.AddLogging(config => config
-                .ClearProviders()
-                .AddOpenTelemetry(options => options
-                    .AddConsoleExporter()));
+            // services.AddSingleton<OpenTelemetryLoggerProvider>();
+            // services.AddLogging(config => config
+            //     .Configure(options => options.ActivityTrackingOptions = 
+            //         ActivityTrackingOptions.TraceId |
+            //         ActivityTrackingOptions.SpanId |
+            //         ActivityTrackingOptions.ParentId)
+            //     .ClearProviders()
+            //     .AddJsonConsole()
+            //     .AddOpenTelemetry(options => options
+            //         .AddConsoleExporter()));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
