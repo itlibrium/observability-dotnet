@@ -5,10 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Observability.ServiceA.Controllers;
 using OpenTelemetry.Trace;
-using Telemetry.ServiceA.Controllers;
 
-namespace Telemetry.ServiceA
+namespace Observability.ServiceA
 {
     public class Startup
     {

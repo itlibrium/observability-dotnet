@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Telemetry.ServiceA.Controllers
+namespace Observability.ServiceA.Controllers
 {
     [ApiController]
     [Route("[controller]")]

@@ -1,7 +1,7 @@
 using Serilog.Core;
 using Serilog.Events;
 
-namespace CustomExtensions.Serilog
+namespace Observability.CustomExtensions.Serilog
 {
     public class RemovePropertiesEnricher : ILogEventEnricher
     {

@@ -1,7 +1,7 @@
 using Serilog;
 using Serilog.Configuration;
 
-namespace CustomExtensions.Serilog
+namespace Observability.CustomExtensions.Serilog
 {
     public static class SerilogConfigurationExtensions
     {

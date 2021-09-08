@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Extensions.Logging;
 
-namespace Telemetry.ServiceA.Controllers
+namespace Observability.ServiceA.Controllers
 {
     public class Service
     {

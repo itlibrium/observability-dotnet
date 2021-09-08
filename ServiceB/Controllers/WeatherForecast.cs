@@ -1,6 +1,6 @@
 using System;
 
-namespace Telemetry.ServiceB.Controllers
+namespace Observability.ServiceB.Controllers
 {
     public class WeatherForecast
     {

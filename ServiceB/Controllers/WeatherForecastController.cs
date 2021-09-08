@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Telemetry.ServiceB.Controllers
+namespace Observability.ServiceB.Controllers
 {
     [ApiController]
     [Route("weather-forecast")]

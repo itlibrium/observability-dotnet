@@ -1,7 +1,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Telemetry.ServiceA.Controllers
+namespace Observability.ServiceA.Controllers
 {
     public class ExternalService
     {

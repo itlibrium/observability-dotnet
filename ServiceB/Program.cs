@@ -1,10 +1,10 @@
-using CustomExtensions.Serilog;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Observability.CustomExtensions.Serilog;
 using Serilog;
 using Serilog.Formatting.Json;
 
-namespace Telemetry.ServiceB
+namespace Observability.ServiceB
 {
     public class Program
     {
