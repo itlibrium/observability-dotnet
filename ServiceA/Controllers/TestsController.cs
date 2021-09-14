@@ -57,10 +57,15 @@ namespace Observability.ServiceA.Controllers
         public Task<IActionResult> WithExternalServiceAsync() => throw new NotImplementedException();
 
         [HttpGet("with-exception")]
-        public Task<IActionResult> WithException() => throw new NotImplementedException();
+        public IActionResult WithException() =>
+            throw new InvalidOperationException("Test message", new IndexOutOfRangeException());
 
         [HttpGet("with-exception-in-external-service")]
-        public Task<IActionResult> WithExceptionInExternalService() => throw new NotImplementedException();
+        public async Task<IActionResult> WithExceptionInExternalService()
+        {
+            var forecast = await _externalService.GetWeatherForecast(DateTime.Now.AddDays(10));
+            return Ok(forecast);
+        }
 
         [HttpGet("complex")]
         public Task<IActionResult> Complex() => throw new NotImplementedException();

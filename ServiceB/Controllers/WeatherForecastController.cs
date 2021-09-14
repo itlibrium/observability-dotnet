@@ -20,12 +20,15 @@ namespace Observability.ServiceB.Controllers
         public WeatherForecastController(ILogger<WeatherForecastController> logger) => _logger = logger;
 
         [HttpGet]
-        public WeatherForecast Get()
+        public WeatherForecast Get(DateTime? date = null)
         {
+            if (date > DateTime.Now.Date.AddDays(7))
+                throw new ArgumentException("We don't provide forecast for more than 7 days.");
+            
             _logger.LogInformation("Headers: {Headers}", HttpContext.Request.Headers);
             var forecast = new WeatherForecast
             {
-                Date = DateTime.Now,
+                Date = date ?? DateTime.Now,
                 TemperatureC = Random.Next(-20, 55),
                 Summary = Summaries[Random.Next(Summaries.Length)]
             };
