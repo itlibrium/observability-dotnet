@@ -18,7 +18,7 @@ namespace Observability.CustomExtensions.Serilog
             var traceId = GetOrAddProperty(activity, TraceId, a => a.TraceId.ToString());
             logEvent.AddPropertyIfAbsent(traceId);
             var spanId = GetOrAddProperty(activity, SpanId, a => a.SpanId.ToString());
-            logEvent.AddPropertyIfAbsent(new LogEventProperty(SpanId, new ScalarValue(activity.SpanId.ToString())));
+            logEvent.AddPropertyIfAbsent(spanId);
         }
 
         private static LogEventProperty GetOrAddProperty(Activity activity, string name,
